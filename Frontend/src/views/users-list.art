@@ -1,0 +1,8 @@
+
+{{each data}}
+<tr>
+  <td id="index">{{$index + 1}}</td>
+  <td id="list-username">{{$value.username}}</td>
+  <td><button  data-id="{{$value._id}}" class="btn btn-danger btnSelect" id="del-btn">删除</button></td>
+</tr>
+{{/each}}
