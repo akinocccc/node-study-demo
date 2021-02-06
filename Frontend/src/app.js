@@ -12,4 +12,6 @@ import './assets/common.css';
 //载入router
 import router from './routes';
 
-router.go('/signin')
+const hash = location.hash.slice(1);
+router.go(hash);
+

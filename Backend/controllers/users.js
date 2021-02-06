@@ -8,7 +8,8 @@
  */
 
 const  usersModel = require('../models/users');
-const { hash, compare } = require('../utils/tools');
+const { hash, compare, sign, verify } = require('../utils/tools');
+const randomstring = require('randomstring')
 
 //注册用户
 const signup = async (req, res, next) => {
@@ -49,21 +50,34 @@ const signin = async(req, res) => {
 
   const { username, password } = req.body;
   const findResult = await usersModel.findUser(username);
-  
+  //验证用户是否合法
   if(findResult) {
     const compareResult = await compare(password, findResult.password);
     if(compareResult) {
+      /* 通过cookie-session方式保存登录态 */
+      /***********************************/
+      /* 手动生成cookie
+      /* const sessionId = randomstring.generate();
+      /* res.set('Set-Cookie', `sessionId=${sessionId}; Path=/; HttpOnly`);
+      /* console.log(sessionId);
+      /***********************************/
+      //使用cookie-session工具管理cookie
+      //req.session.username = username;
+
+      /* 使用token保存登录态 */
+      const token = sign(username);
+      res.set('X-Access-Token', token);
+
       res.render('succ', {
         data: JSON.stringify ({
-          message: '登录成功',
-          result: true
+          username
         })
       });
+
     } else {
       res.render('fail', {
         data: JSON.stringify({
-          message: '用户名/密码错误',
-          result: false
+          message: '用户名/密码错误'
         })
       });
     }
@@ -76,6 +90,15 @@ const signin = async(req, res) => {
     });
   }
   
+};
+
+//退出登录
+const signout = async(req, res, next) => {
+  res.render('succ', {
+      data: JSON.stringify({
+        message: '成功退出登录'
+      })
+    });
 };
 
 //获取用户列表
@@ -108,7 +131,44 @@ const remove = async(req, res) => {
   
 }
 
+const isAuth = (req, res, next) => {
+  /* 通过session鉴权 */
+  // if(req.session.username) {
+  //   res.render('succ', {
+  //     data: JSON.stringify({
+  //       username: req.session.username
+  //     })
+  //   });
+  // } else {
+  //   res.render('fail', {
+  //     data: JSON.stringify({
+  //       message: '请登录'
+  //     })
+  //   });
+  // }
+  /* ************** */
+
+  /* 通过token鉴权 */
+  const token = req.get('X-Access-Token');
+  try {
+    const result = verify(token);
+    res.render('succ', {
+      data: JSON.stringify({
+        username: req.session.username
+      })
+    });
+  } catch(e) {
+    res.render('fail', {
+      data: JSON.stringify({
+        message: '请登录'
+      })
+    });
+  }
+};
+
 exports.signup = signup;
 exports.signin = signin;
+exports.signout = signout;
 exports.list = list;
 exports.remove = remove;
+exports.isAuth = isAuth;

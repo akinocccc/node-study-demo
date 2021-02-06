@@ -32,3 +32,19 @@ robo 3T
 
 ### 开发架构
 - 前后端分离开发架构
+
+### 应用知识点
+- npm/yarn基本使用
+- webpack的环境配置及基本使用
+- RMVC模型的架构
+- 组件化思想
+- 前后端分离思想
+- jQuery的常用Dom操作
+- bootstrap组件使用
+- 前后端路由的应用
+- express框架及art/ejs模板的基础使用
+- 前端接口的编写与设计
+- 后端增删改查等相关接口的设计及响应
+- moogodb的使用
+- socket消息推送
+- session/token(jwt)保存登录态(鉴权)
