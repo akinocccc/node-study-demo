@@ -1,0 +1,13 @@
+{{each data}}
+<tr id="positions-list-content">
+  <td>{{$value.no}}</td>
+  <td>{{$value.positionName}}</td>
+  <td>{{$value.createDate}}</td>
+  <td><span class="label label-success">&nbsp;&nbsp;&nbsp;&nbsp;{{$value.staffNumber+' '+'人'}}&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+  <td>{{$value.description}}</td>
+  <td>
+    <button class="btn btn-primary btnSelect" id="update-btn" style="margin-left: -40px; margin-right: 10px" data-toggle="modal" data-target="#staticBackdrop" data-id="{{$value._id}}">修改</button>
+    <button class="btn btn-danger btnSelect" id="del-position-btn" data-id="{{$value._id}}">移除</button>  
+  </td>
+</tr>
+{{/each}}

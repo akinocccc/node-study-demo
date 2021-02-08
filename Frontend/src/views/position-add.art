@@ -1,0 +1,50 @@
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">{{data?data.title:'添加职位'}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">职位信息</h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <form role="form" id="position-form">
+            <div class="box-body">
+              <div class="form-group">
+                <label for="no">编号</label>
+                <input type="text" class="form-control"name="no" value="{{data?data.no:''}}" placeholder="输入职位编号">
+              </div>
+              <div class="form-group">
+                <label for="nane">职位名称</label>
+                <input type="text" class="form-control" name="positionName" value="{{data?data.positionName:''}}" placeholder="输入职位名称">
+              </div>
+              <div class="form-group">
+                <label for="date">创建日期</label>
+                <input class="form-control" readonly="readonly" name="createDate" value="{{data?data.createDate:date}}"></input>
+              </div>
+              <div class="form-group">
+                <label for="number">在职人数</label>
+                <input type="text" class="form-control" name="staffNumber" value="{{data?data.staffNumber:''}}" placeholder="输入在职人数">
+              </div>
+              <div class="form-group">
+                <label for="description">职位描述</label>
+                <input type="text" class="form-control" name="description" value="{{data?data.description:''}}" placeholder="输入职位描述">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="position-close" type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button id="position-save" type="button" class="btn btn-primary" data-dismiss="modal">保存</button>
+      </div>
+    </div>
+  </div>
+</div>

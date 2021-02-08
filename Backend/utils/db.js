@@ -14,6 +14,8 @@ mongoose.connect('mongodb://localhost/AdminLTE', {
   useUnifiedTopology: true
 });
 
+mongoose.set('useFindAndModify', false);
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 
@@ -23,6 +25,16 @@ var usersSchema = mongoose.Schema({
   password: String
 });
 
+var positionsSchema = mongoose.Schema({
+  no: Number,
+  positionName: String,
+  createDate: String,
+  staffNumber: Number,
+  description: String
+});
+
 var Users = mongoose.model('users', usersSchema);
+var Positions = mongoose.model('positions', positionsSchema);
 
 exports.Users = Users;
+exports.Positions = Positions;
